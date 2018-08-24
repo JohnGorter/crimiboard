@@ -1,4 +1,5 @@
 
+let index = 1000;
 
 class CrimiData extends React.Component {
     constructor(){
@@ -11,7 +12,7 @@ class CrimiData extends React.Component {
         newdata.forEach(lane => {
             if (lane.title == card.selectedlane) {
                 lane.cards.push({
-                    id:(lane.cards.length+1), 
+                    id:index++, 
                     title:card.title, 
                     link:card.link, 
                     description:card.description,
@@ -22,6 +23,18 @@ class CrimiData extends React.Component {
         this.setState({data:newdata});
     }
 
+    removeCard(id){
+        console.log("removing card", id);
+        let newdata = this.state.data.slice();
+        newdata.forEach(lane => {
+                let foundcard = lane.cards.find(c => c.id == id);
+                if (foundcard)
+                   lane.cards.splice(lane.cards.indexOf(foundcard),1);
+        });
+        console.log("setting new state", newdata);
+        this.setState({data:newdata});
+    }
+
     componentWillMount(){
         fetch("/data.json")
         .then( response => response.json())
@@ -29,7 +42,7 @@ class CrimiData extends React.Component {
     }
 
     render() {
-       return <CrimiBoard lanes={this.state.data} onNewCard={this.newCard.bind(this)}></CrimiBoard>
+       return <CrimiBoard lanes={this.state.data} onRemoveCard={this.removeCard.bind(this)} onNewCard={this.newCard.bind(this)}></CrimiBoard>
     }
 }
 
@@ -54,7 +67,8 @@ class CrimiBoard extends React.Component {
         return (
             <div>
             <div style={style}>
-            { this.props.lanes.map((lane) =>  <Lane key={lane.id} title={lane.title} cards={lane.cards} />) }
+            { this.props.lanes.map((lane) =>  
+                <Lane key={lane.id} title={lane.title} cards={lane.cards} onRemoveCard={this.props.onRemoveCard} />) }
             </div>
             <NewCard lanes={this.props.lanes} onNewCard={this.props.onNewCard} />
             </div>
@@ -64,7 +78,19 @@ class CrimiBoard extends React.Component {
 }
 
 class Lane extends React.Component {
+    constructor(){
+        super(); 
+    }
+   
+
+    removeButton(id){
+        console.log("removing card");
+        this.props.onRemoveCard(id);
+       
+    }
+
     render(){
+        console.log("rerendering lane");
         let style = {
             color:'black',
             paddingLeft:'100px'
@@ -72,17 +98,28 @@ class Lane extends React.Component {
 
         return (
             <div className="lane" style={style}>
-                <h1>{this.props.title}</h1>
-                { this.props.cards.map((card) => 
-                <Card key={card.id} title={card.title} description={card.description} link={card.link} allowLikes={card.allowLikes} />) }
+                <h1>{this.props.title}</h1> 
+                <ReactTransitionGroup.TransitionGroup>
+                { this.props.cards.map(card => 
+                    <ReactTransitionGroup.CSSTransition key={card.id} timeout={500} classNames="card">
+                        <Card id={card.id} key={card.id} title={card.title} description={card.description} link={card.link} allowLikes={card.allowLikes} onRemove={() =>this.removeButton(card.id)} />
+                    </ReactTransitionGroup.CSSTransition>
+                )}
+                </ReactTransitionGroup.TransitionGroup>
             </div>
         )
     }
 }
 
 class Card extends React.Component {
+   
     render(){
+        let spanstyle = {
+            right:5,
+            position:'absolute'
+        };
         let style = {
+            position:'relative',
             boxShadow:'5px 5px 5px #ccc',
             padding:'15px',
             marginBottom:'20px'
@@ -92,12 +129,13 @@ class Card extends React.Component {
             likes = <Like />;
         }
         return (
-            <div className="card" style={style} >
-                <h3>{this.props.title}</h3>
-                <p>{this.props.description}</p>
-                <a href={this.props.link}>{this.props.link}</a>
-                {likes}
-            </div>
+                <div className="card" style={style} >
+                    <span style={spanstyle} onClick={this.props.onRemove} dangerouslySetInnerHTML={{__html:'&#x1f5d1;'}}></span>
+                    <h3>{this.props.title}</h3>
+                    <p>{this.props.description}</p>
+                    <a href={this.props.link}>{this.props.link}</a>
+                    {likes}
+                </div>
         )
     }
 }

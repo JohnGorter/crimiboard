@@ -42,23 +42,12 @@ Greeter.defaultProps = {
 }
 ```
 
----
-### Default Prop Values
-To provide default values
-```js
-...
-Greeter.propTypes = {
-    greeting: PropTypes.string.isRequired
-}
 
-Greeter.defaultProps = {
-    greeting: "Hello World"
-}
-```
 
 ---
 ### PropType Validation
 React contains a lot of validators for types
+
 Validator|Description
 --- | --- 
 PropTypes.array | Props must be an array
@@ -68,16 +57,16 @@ PropTypes.number | Props must be a number
 PropTypes.object | Props must be an object
 PropTypes.string | Props must be a string
 PropTypes.oneOfType | Props could be one of many types
-PropTypes.arrayOf | Props must be an array of certain type
-PropTypes.objectOf | Props must be an object with property values of certain type
-PropTypes.shape | Props must conform to certain shape
 
 ---
 ### PropType Validation
 
 Validator|Description
 --- | --- 
-PropTypes.node | Props can be any valie that can be rendered
+PropTypes.arrayOf | Props must be an array of certain type
+PropTypes.objectOf | Props must be an object with property values of certain type
+PropTypes.shape | Props must conform to certain shape
+PropTypes.node | Props can be any value that can be rendered
 PropTypes.element | Props must be a React element
 PropTypes.instanceOf | Props must be an instance of a given class
 PropTypes.oneOf | Props must be specific value (enum)

@@ -1,13 +1,13 @@
 # Animation
 
 ---
-
 ### Animation
 - Basic Animation 
     - using CSS
 - React Animation
     - Using React Transition Group
 
+---
 ### Basic Animation
 Two Categories
 - CSS Transitions (only have a start and end state)
@@ -57,7 +57,6 @@ Use class wrappers and set classes programmatically
 CSS Animations Programmatically
 
 ---
-
 ### React Transition Group
 React Components for animation
 Setup using
@@ -78,7 +77,6 @@ It consists of the following components
 - TransitionGroup
 
 ---
-
 ### Transition
 The Transition component lets you describe a transition from one component state to another over time with a simple declarative API.
 - It only tracks "enter" and "exit" states for the components. It's up to you to give meaning and effect to those states.
@@ -108,7 +106,6 @@ const Fade = ({ in: inProp }) => (
 ```
 
 ---
-
 ### Transition
 There are 4 main states a Transition can be in
 - entering
@@ -128,7 +125,6 @@ Transition state is toggled via the in prop
 Transition Component
 
 ---
-
 ### CSS Transtion
 - simpeler version for CSS transitions
 - applies a pair of class names during the appear, enter, and exit stages 
@@ -136,7 +132,6 @@ Transition Component
 - afterwards, matching done class names are applied to persist animation state.
 
 ---
-
 <!-- .slide: data-background="url('images/demo.jpg')" data-background-size="cover" --> 
 <!-- .slide: class="lab" -->
 ## Demo time!
@@ -171,7 +166,6 @@ Component that manages a set of <Transition> components in a list
 ```
 
 ---
-
 <!-- .slide: data-background="url('images/lab2.jpg')" data-background-size="cover"  --> 
 <!-- .slide: class="lab" -->
 ## Lab time!

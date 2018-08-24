@@ -8,6 +8,7 @@ Components can have data as props and state
     - is optional
 
 Components without state are called pure components
+
 Statefull components are usually higher on the component hierarchy
 
 ---
@@ -166,6 +167,7 @@ let newContact = update(contact, { phones:{ 0:{$set:["0318-123456"]}}});
 ---
 ### React Immutability Helper
 Available Commands
+
 Command | Description
 --- | ---
 $push | Similar to Array's push

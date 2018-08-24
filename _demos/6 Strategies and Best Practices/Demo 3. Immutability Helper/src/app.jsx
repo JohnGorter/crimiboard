@@ -15,6 +15,8 @@ const state2 = update(state1, {$push: ['y']}); // ['x', 'y'];
 
 debugger;
 
+
+
 const myData = { a: { b:[] },  x: { y: { z: 6 }}};
 const newData = update(myData, {
     x: {y: {z: {$set: 7}}},
