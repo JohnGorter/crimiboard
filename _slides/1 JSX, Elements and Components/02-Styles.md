@@ -9,14 +9,14 @@ Components are styled inline as javaScript object
 
 Example
 ```js
-render(
+render(){
     let style = {
         width:100,
         backgroundColor:'red',
         color:this.props.color
     };
     return <div style={style} color="green">Hello World</div>
-)
+}
 ```
 
 ---
@@ -26,9 +26,9 @@ render(
 Styles can be exposed as properties
 
 ```js
-render(
+render() {
    return <MyDiv color="green">Hello World</MyDiv>
-)
+}
 
 class MyDiv extends Component {
     render(){

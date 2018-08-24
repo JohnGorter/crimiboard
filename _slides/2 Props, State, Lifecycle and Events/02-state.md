@@ -25,7 +25,9 @@ class Greeter4 extends Component {
     }
 
 ```
-## More State
+
+---
+### More State
 
 * Components may need to keep state that is private.
 * A _pure_ function component can never keep state, because _pure_ functions
@@ -35,7 +37,6 @@ class Greeter4 extends Component {
 
 
 ---
-
 ### Something odd?
 
 ```js

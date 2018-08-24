@@ -44,7 +44,7 @@ componentWillUnmount | Invoked immediately before a component id unmounted from 
 Method/Callback | Description
 --- | ---
 componentWillReceiveProps | Invoked when a component is receiving new props
-shouldComponentUpdate | Special function clled before render to optionally skip rendering
+shouldComponentUpdate | Special function called before render to optionally skip rendering
 componentWillUpdate | Invoked immediately before rendering
 (render) | 
 componentDidUpdate | Invoked immediately after rendering
@@ -55,7 +55,7 @@ componentDidUpdate | Invoked immediately after rendering
 
 Method/Callback | Description
 --- | ---
-shouldComponentUpdate | Special function clled before render to optionally skip rendering
+shouldComponentUpdate | Special function called before render to optionally skip rendering
 componentWillUpdate | Invoked immediately before rendering
 (render) | 
 componentDidUpdate | Invoked immediately after rendering

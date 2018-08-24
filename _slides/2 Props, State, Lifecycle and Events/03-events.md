@@ -9,9 +9,9 @@ HTML has API for event handling using attributes
 Downsides:
 - pollutes the global namespace
 - hard to track in big HTML file
-- can be slow, lea to memory leaks
+- can be slow and lead to memory leaks
 
-----
+---
 ### JSX Event Listeners
 Support for similar API
 Benefits:
@@ -22,7 +22,7 @@ Difference:
 - properties are camel-cased
   - onClick instead of onclick
 
-----
+---
 ### Recap
 
 * Mutating state is often a reply to some (user) event.
