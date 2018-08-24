@@ -61,6 +61,7 @@ render(){
 ## Demo time!
 Controlled component with State
 
+---
 ### Advantages of controlled components
 - Stays true to React, state is kept out of interface
 - Easy input validation and sanatisation

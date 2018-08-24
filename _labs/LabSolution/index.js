@@ -6,6 +6,22 @@ class CrimiData extends React.Component {
         this.state = { data:[]};
     }
 
+    newCard(card){
+        let newdata = this.state.data.slice();
+        newdata.forEach(lane => {
+            if (lane.title == card.selectedlane) {
+                lane.cards.push({
+                    id:(lane.cards.length+1), 
+                    title:card.title, 
+                    link:card.link, 
+                    description:card.description,
+                    allowLikes:card.allowLikes
+                });
+            }
+        });
+        this.setState({data:newdata});
+    }
+
     componentWillMount(){
         fetch("/data.json")
         .then( response => response.json())
@@ -13,7 +29,7 @@ class CrimiData extends React.Component {
     }
 
     render() {
-       return <CrimiBoard lanes={this.state.data}></CrimiBoard>
+       return <CrimiBoard lanes={this.state.data} onNewCard={this.newCard.bind(this)}></CrimiBoard>
     }
 }
 
@@ -36,11 +52,11 @@ class CrimiBoard extends React.Component {
             display:'flex',
         };
         return (
-            <div><input type="text" placeholder="title" value={this.state.title} onChange={this.handleInput} />
+            <div>
             <div style={style}>
-            
             { this.props.lanes.map((lane) =>  <Lane key={lane.id} title={lane.title} cards={lane.cards} />) }
             </div>
+            <NewCard lanes={this.props.lanes} onNewCard={this.props.onNewCard} />
             </div>
             
         );
@@ -57,7 +73,8 @@ class Lane extends React.Component {
         return (
             <div className="lane" style={style}>
                 <h1>{this.props.title}</h1>
-                { this.props.cards.map((card) => <Card key={card.id} title={card.title} description={card.description} link={card.link} />) }
+                { this.props.cards.map((card) => 
+                <Card key={card.id} title={card.title} description={card.description} link={card.link} allowLikes={card.allowLikes} />) }
             </div>
         )
     }
@@ -70,12 +87,16 @@ class Card extends React.Component {
             padding:'15px',
             marginBottom:'20px'
         }
+        let likes;
+        if (this.props.allowLikes) {
+            likes = <Like />;
+        }
         return (
             <div className="card" style={style} >
                 <h3>{this.props.title}</h3>
                 <p>{this.props.description}</p>
                 <a href={this.props.link}>{this.props.link}</a>
-                <Like />
+                {likes}
             </div>
         )
     }
@@ -120,4 +141,68 @@ class Like extends React.Component {
     }
 }
 
+class NewCard extends React.Component {
+    constructor() {
+        super(); 
+        this.state = {
+            title:"",
+            description:"",
+            link:"",
+            selectedlane:"New",
+            allowLikes:false,
+        };
+
+    }
+
+    handleNewCard(){
+        // WHAT SHOULD WE DO HERE !!
+        this.props.onNewCard(this.state);
+    }
+
+    handleInput(event, a, b){
+        switch(event.target.name){
+            case "title": this.setState({title:event.target.value}); break;
+            case "description": this.setState({description:event.target.value}); break;
+            case "link": this.setState({link:event.target.value}); break;
+            case "selectedlane": this.setState({selectedlane:event.target.value}); break;
+            case "allowLikes": this.setState({allowLikes:!this.state.allowLikes}); break;
+            default: console.log("default"); break;
+        }
+    }
+
+    render(){
+        let formcomplete = (this.state.title && this.state.description);
+        let style = {
+            padding:20,
+            border:'1px solid black'
+        };
+        return (
+            <div style={style}>
+                <h1>Add a new CRIMI investigation to the CrimiBoard</h1>
+                <dl>
+                    <dt>Title:</dt>
+                    <dd><input type="text" name="title" value={this.state.title} onChange={this.handleInput.bind(this)}/></dd>
+                    <dt>Description:</dt>
+                    <dd><textarea name="description" value={this.state.description} onChange={this.handleInput.bind(this)}/></dd>
+                    <dt>Link:</dt>
+                    <dd><input type="text" name="link" value={this.state.link} onChange={this.handleInput.bind(this)}/></dd>
+                    <dt>Lane:</dt>
+                    <dd>
+                        <select name="selectedlane" value={this.state.selectedlane} onChange={this.handleInput.bind(this)}>
+                            { this.props.lanes.map((lane) => 
+                                <option key={lane.title} value={lane.title}>{lane.title}</option>
+                            )}
+                        </select>
+                    </dd>
+                    <dt>Allow user votes:</dt>
+                    <dd><input type="checkbox" name="allowLikes" checked={this.state.allowLikes} onChange={this.handleInput.bind(this)}/></dd>
+                </dl>
+                <button onClick={this.handleNewCard.bind(this)} disabled={!formcomplete}>Add Card</button>
+            </div>
+        )
+    }
+}
+
 ReactDOM.render(<CrimiData />, document.querySelector("#root"));
+
+

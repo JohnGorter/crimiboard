@@ -38,3 +38,75 @@ You can prevent a child from re-rendering when necessary
     - it can lead to hard to track bugs
 
 
+---
+<!-- .slide: data-background="url('images/demo.jpg')" data-background-size="cover" --> 
+<!-- .slide: class="lab" -->
+## Demo time!
+Create a performance bottleneck
+
+---
+### Tooling
+There is tooling to inspect your app
+- Performance measuring in Chrome DevTools
+    - Performance API
+    - Performance Tab, query param: react_perf
+- React Devtools
+    - Extension for Chrome
+
+... much much more...
+
+---
+### Performance API
+Chrome adds performance API for user timings
+example
+```js
+performance.mark("start") // 100ms
+/* some executions here */
+window.setTimeout(() => {
+    performance.mark("end") // 500ms
+    performance.measure("difference", "start", "end");
+}, 1000);
+```
+
+---
+<!-- .slide: data-background="url('images/demo.jpg')" data-background-size="cover" --> 
+<!-- .slide: class="lab" -->
+## Demo time!
+Using the performance api
+
+---
+### Performance measuring
+React has built in performance api calls
+How to visualize React timings
+- open the link to your app using http://localhost:3000?react_perf
+- open the Chrome DevTools Performance tab and press Record
+- perform the actions that you want to analyze
+- stop recording
+- inspect the visualization under User Timing
+
+---
+<!-- .slide: data-background="url('images/demo.jpg')" data-background-size="cover" --> 
+<!-- .slide: class="lab" -->
+## Demo time!
+Using the react_perf
+
+---
+### React Devtools
+- Chrome extension for React Components which
+- lets you inspect the component tree
+- call methods on the selected components
+    - $r.setState(field:newval)
+- record and inspect performance 
+
+---
+<!-- .slide: data-background="url('images/demo.jpg')" data-background-size="cover" --> 
+<!-- .slide: class="lab" -->
+## Demo time!
+Using the React DevTools
+
+---
+<!-- .slide: data-background="url('images/lab2.jpg')" data-background-size="cover"  --> 
+<!-- .slide: class="lab" -->
+## Lab time!
+Performance and Tools
+

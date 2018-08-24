@@ -17,8 +17,10 @@
                 this.state = { searchTerm: "React" };
             }
             handleChange(event) {
+                console.log("changing state to", event.target.value);
+
                 // React handles the merging of oldstate and new property
-                this.setState({searchTerm: event.target.value});
+                this.setState({searchTerm: event.target.value.substr(0,10)});
             }
             render(){
                 return (
