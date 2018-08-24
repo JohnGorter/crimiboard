@@ -11,12 +11,12 @@
 
    <script type="text/babel">
 
-    const AppContext = React.createContext({number:100});
+    const AppContext = React.createContext();
 
     class AppProvider extends React.Component {
         constructor() {
             super(); 
-            this.state = { number:30};
+            this.state = { number:300};
         }
 
         render() {

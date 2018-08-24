@@ -163,7 +163,7 @@ React Routing
 There is more to routing 
 - child routes aka Nested routes
     - example /about/details and /about/overview
-- Pamaterised routes
+- Parameterised routes
     - example /blog/:id
 
 ---

@@ -42,7 +42,8 @@ class CrimiData extends React.Component {
     }
 
     render() {
-       return <CrimiBoard lanes={this.state.data} onRemoveCard={this.removeCard.bind(this)} onNewCard={this.newCard.bind(this)}></CrimiBoard>
+       return (
+       <CrimiBoard lanes={this.state.data} onRemoveCard={this.removeCard.bind(this)} onNewCard={this.newCard.bind(this)}></CrimiBoard>)
     }
 }
 
@@ -66,12 +67,22 @@ class CrimiBoard extends React.Component {
         };
         return (
             <div>
-            <div style={style}>
-            { this.props.lanes.map((lane) =>  
-                <Lane key={lane.id} title={lane.title} cards={lane.cards} onRemoveCard={this.props.onRemoveCard} />) }
-            </div>
-            <NewCard lanes={this.props.lanes} onNewCard={this.props.onNewCard} />
-            </div>
+                <ReactRouter.Switch>
+                    <ReactRouter.Route exact path="/" render={() => 
+                        <div>
+                            <div style={style}>
+                                { this.props.lanes.map((lane) =>  
+                                    <Lane key={lane.id} title={lane.title} cards={lane.cards} onRemoveCard={this.props.onRemoveCard} />) }
+                            </div>
+                            <ReactRouterDOM.Link to="/newCard">Add a new story</ReactRouterDOM.Link>
+                        </div>
+                    } />
+                    <ReactRouter.Route exact path="/newCard" render={() =>
+                        <NewCard lanes={this.props.lanes} onNewCard={this.props.onNewCard} />
+                    } />
+             </ReactRouter.Switch>
+             </div>
+           
             
         );
     }
@@ -179,6 +190,7 @@ class Like extends React.Component {
     }
 }
 
+
 class NewCard extends React.Component {
     constructor() {
         super(); 
@@ -194,7 +206,10 @@ class NewCard extends React.Component {
 
     handleNewCard(){
         // WHAT SHOULD WE DO HERE !!
+        console.log("add a new card");
         this.props.onNewCard(this.state);
+        // return to the main page..
+        this.setState({returntomain:true});
     }
 
     handleInput(event, a, b){
@@ -214,7 +229,10 @@ class NewCard extends React.Component {
             padding:20,
             border:'1px solid black'
         };
-        return (
+        if (this.state.returntomain)
+            return <ReactRouterDOM.Redirect to='/' />
+        else 
+            return (
             <div style={style}>
                 <h1>Add a new CRIMI investigation to the CrimiBoard</h1>
                 <dl>
@@ -241,6 +259,9 @@ class NewCard extends React.Component {
     }
 }
 
-ReactDOM.render(<CrimiData />, document.querySelector("#root"));
+ReactDOM.render(
+    <ReactRouterDOM.BrowserRouter>
+         <CrimiData />
+    </ReactRouterDOM.BrowserRouter>, document.querySelector("#root"));
 
 
